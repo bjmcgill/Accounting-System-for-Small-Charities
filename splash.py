@@ -51,7 +51,9 @@ class splashScreen():
         basewidth = 220
         wpercent = (basewidth / float(image.size[0]))
         hsize = int((float(image.size[1]) * float(wpercent)))
-        image = image.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+        image = image.resize((basewidth, hsize), PIL.Image.Resampling.LANCZOS)
+        # image = image.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+
         photo = ImageTk.PhotoImage(image)
         canvas.create_image(250,250, image=photo)
         canvas.create_text(250,161, text='Welcome to', font=('Helvetica', '18', 'italic'))
