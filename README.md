@@ -1,5 +1,27 @@
 ![Accounting System](/images/Number_cruncherCr3.png)
 
+# BJ McGill Update 02-06-2025
+
+This is a fork of medmatix's (David York's) Accounting System
+
+The idea is to create a simple Accounting System for small charities. The charities I am thinking of will not need to buy or sell goods on credit, so this program will use Receipts and Payments Accounting rather than Accruals Accounting. Currently I use gnucash for this purpose.
+
+I aim to add functionality to the program so that end of year reports: Receipts and Payment Accounts, and Statement of Assets and Liabilities can be created automatically.
+
+Charities categorise transactions by funds. Restricted funds can only be used for certain purposes, whereas Unrestricted funds may be used for any purpose. Assets will typically be bank and cash accounts. transactions involving these assets will have a field identifying which fund these transactions are associated with.
+
+Expenses amd Income accounts will have a field identifying whether they are used for restricted or unrestricted purposes. This is necessary to create the end of year reports.
+
+As an example suppose I wanted to buy a tool online for the benefit of a restricted fund called Levenshulme in Bloom. I would credit the bank account asset, because that is where I am taking money from. The transaction would be identified as associated with the Levenshulme in Bloom fund by a field in the record. I would debit the restricted tool expense, and leave the unrestricted tool expense alone.
+
+Examples of Receipts and Payments Accounts and Statements of Assets and Liabilities reports can be found here [End of Year Reports](https://beesanctuarymovement.org/annual-reports/)
+
+My immediate plan is to practice using medmatix's program to keep records for the charity I help run. Once I become familiar with how to use the program, I will refresh my knowledge of tkinter and sql, before making changes to the program. I will post here when I am ready to do that.
+
+I have tidied up the repository somewhat. I have added a requirements.txt file, and a .gitignore file. OpenAccounting.db is in the .gitignore file. This is the file containing the database. If you require an example database to use, follow the instructions in the .gitignore file.
+
+The original README.md file now follows -:
+
 # An Accounting System
 
 A basic accounting system compliant with Generally Accepted Accounting Practice (or Principles) (GAAP). It is written in python 3.7 and SQLite3.
