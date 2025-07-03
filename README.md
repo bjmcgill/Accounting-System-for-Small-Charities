@@ -20,6 +20,47 @@ My immediate plan is to practice using medmatix's program to keep records for th
 
 I have tidied up the repository somewhat. I have added a requirements.txt file, and a .gitignore file. OpenAccounting.db is in the .gitignore file. This is the file containing the database. If you require an example database to use, follow the instructions in the .gitignore file.
 
+# BJ McGill Update 03-06-2025
+
+I have thought about changes to the table structure I will implement and these are as follows :-
+
+CREATE TABLE Chart (
+    Id INTEGER PRIMARY KEY,
+    Name TEXT CHECK(length(Name) <= 50),
+    ActyType TEXT CHECK(length(ActyType) <= 6),
+    Balance INTEGER
+);
+
+CREATE TABLE Journal (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    User_date DATE,
+    Description TEXT CHECK(length(Description) <= 40),
+    Posted BOOLEAN,
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+Note that there will be two or more entries in the ledger, for every record in the journal. One can join the two tables to see all the entries with the information stored in the Journal table. Ledger and Account_memos have a foreign key Tran_id which references journal
+
+CREATE TABLE Ledger (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Tran_id INTEGER,
+    Amount INTEGER,
+    FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
+);
+
+CREATE TABLE Account_memos (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Tran_id INTEGER,
+    Memo BLOB,
+    FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
+);
+
+Note I have used AUTOINCREMENT to create the primary keys here.
+
+My next task is to create a split-transaction entry form, which will enable the user to add transactions of two or more parts to the Ledger/Journal. The program will automatically create a balancing entry in the Ledger assigned to the Imbalance Account, if the entries entered by the user do not balance.
+
+
+
 The original README.md file now follows -:
 
 # An Accounting System
