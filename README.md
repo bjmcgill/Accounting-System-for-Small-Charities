@@ -41,7 +41,7 @@ CREATE TABLE Journal (
 );
 ```
 
-Note that there will be two or more entries in the ledger, for every record in the journal. One can join the two tables to see all the entries with the information stored in the Journal table. Ledger and Account_memos have a foreign key Tran_id which references journal
+Note that there will be two or more entries in the ledger, for every record in the journal. One can join the two tables to see all the entries with the information stored in the Journal table. Ledger and Account_memos have a foreign key which references journal
 
 ```
 CREATE TABLE Ledger (
@@ -52,14 +52,15 @@ CREATE TABLE Ledger (
 );
 
 CREATE TABLE Account_memos (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Tran_id INTEGER,
+    Id INTEGER PRIMARY KEY,
     Memo BLOB,
-    FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
+    FOREIGN KEY (Id) REFERENCES Journal(Id)
 );
 ```
 
 Note I have used AUTOINCREMENT to create the primary keys here.
+
+I have used INTEGER values to store currency to the nearest penny or cent. This will be divided by 100 and formatted to two decimal places when displayed to the user. 
 
 My next task is to create a split-transaction entry form, which will enable the user to add transactions of two or more parts to the Ledger/Journal. The program will automatically create a balancing entry in the Ledger assigned to the Imbalance Account, if the entries entered by the user do not balance.
 
