@@ -24,6 +24,7 @@ I have tidied up the repository somewhat. I have added a requirements.txt file, 
 
 I have thought about changes to the table structure I will implement and these are as follows :-
 
+```
 CREATE TABLE Chart (
     Id INTEGER PRIMARY KEY,
     Name TEXT CHECK(length(Name) <= 50),
@@ -38,9 +39,11 @@ CREATE TABLE Journal (
     Posted BOOLEAN,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+```
 
 Note that there will be two or more entries in the ledger, for every record in the journal. One can join the two tables to see all the entries with the information stored in the Journal table. Ledger and Account_memos have a foreign key Tran_id which references journal
 
+```
 CREATE TABLE Ledger (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Tran_id INTEGER,
@@ -54,6 +57,7 @@ CREATE TABLE Account_memos (
     Memo BLOB,
     FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
 );
+```
 
 Note I have used AUTOINCREMENT to create the primary keys here.
 
