@@ -52,8 +52,7 @@ To soft delete a record in the Journal you would enter something like the follow
 ```
 UPDATE Journal
 SET Deleted = 1,
-    Deleted_at = CURRENT_TIMESTAMP,
-    Deleted_by = 'admin_user'
+    Deleted_at = CURRENT_TIMESTAMP
 WHERE Id = 123;
 ```
 
@@ -65,9 +64,27 @@ CREATE TABLE Ledger (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Tran_id INTEGER,
     Amount INTEGER,
-    FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
+    Fund_Id INTEGER,
+    FOREIGN KEY (Tran_id) REFERENCES Journal(Id),
+    FOREIGN KEY (Fund_id) REFERENCES Fund(Id)
 );
+```
 
+The Fund field in a ledger entry of a Bank/Cash Account references a Fund, so that a report can show transactions related to that Fund, and show how much money is left in the fund.
+
+The Fund table definition looks like :-
+
+```
+CREATE TABLE Fund (
+    Id INTEGER PRIMARY KEY,
+    Name TEXT CHECK(length(Name) <= 50)
+    Restricted BOOLEAN DEFAULT 0
+)
+```
+
+Finally there is an Account_memo table :-
+
+```
 CREATE TABLE Account_memo (
     Id INTEGER PRIMARY KEY,
     Memo BLOB,
