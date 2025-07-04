@@ -37,11 +37,28 @@ CREATE TABLE Journal (
     User_date DATE,
     Description TEXT CHECK(length(Description) <= 40),
     Posted BOOLEAN,
-    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Deleted BOOLEAN DEFAULT 0,
+    Deleted_at DATETIME
 );
 ```
 
 Note that there will be two or more entries in the ledger, for every record in the journal. One can join the two tables to see all the entries with the information stored in the Journal table. Ledger and Account_memos have a foreign key which references journal
+
+The two fields mentioning Deleted enable the user to soft delete a transaction whilst retaining the audit trail. I don't think it would be wise to use ON DELETE CASCADE in the two following table definitions, because of the risk of losing important information.
+
+To soft delete a record in the Journal you would enter something like the following :-
+
+```
+UPDATE Journal
+SET Deleted = 1,
+    Deleted_at = CURRENT_TIMESTAMP,
+    Deleted_by = 'admin_user'
+WHERE Id = 123;
+```
+
+There is no need to alter the data in the tables Ledger and Account_memo when deleting.
+
 
 ```
 CREATE TABLE Ledger (
@@ -51,7 +68,7 @@ CREATE TABLE Ledger (
     FOREIGN KEY (Tran_id) REFERENCES Journal(Id)
 );
 
-CREATE TABLE Account_memos (
+CREATE TABLE Account_memo (
     Id INTEGER PRIMARY KEY,
     Memo BLOB,
     FOREIGN KEY (Id) REFERENCES Journal(Id)
