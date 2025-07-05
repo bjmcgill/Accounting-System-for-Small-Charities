@@ -63,10 +63,12 @@ There is no need to alter the data in the tables Ledger and Account_memo when de
 CREATE TABLE Ledger (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Tran_id INTEGER,
+    Account_id INTEGER,
     Amount INTEGER,
     Fund_Id INTEGER,
     FOREIGN KEY (Tran_id) REFERENCES Journal(Id),
     FOREIGN KEY (Fund_id) REFERENCES Fund(Id)
+    FOREIGN KEY (Account_id) REFERENCES Chart(Id)
 );
 ```
 
