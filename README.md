@@ -1,6 +1,6 @@
 ![Accounting System](/images/Number_cruncherCr3.png)
 
-# BJ McGill Update 02-06-2025
+# BJ McGill Update 02-07-2025
 
 This is a fork of medmatix's (David York's) Accounting System
 
@@ -20,7 +20,7 @@ My immediate plan is to practice using medmatix's program to keep records for th
 
 I have tidied up the repository somewhat. I have added a requirements.txt file, and a .gitignore file. OpenAccounting.db is in the .gitignore file. This is the file containing the database. If you require an example database to use, follow the instructions in the .gitignore file.
 
-# BJ McGill Update 03-06-2025
+# BJ McGill Update 03-07-2025
 
 I have thought about changes to the table structure I will implement and these are as follows :-
 
@@ -100,7 +100,13 @@ I have used INTEGER values to store currency to the nearest penny or cent. This 
 
 My next task is to create a split-transaction entry form, which will enable the user to add transactions of two or more parts to the Ledger/Journal. The program will automatically create a balancing entry in the Ledger assigned to the Imbalance Account, if the entries entered by the user do not balance.
 
+# BJ McGill Update 05-07-2025
 
+I have decided to use pandas and tksheet to handle the table gui for the split-transaction entry form. I have already managed to create a simple ledger grid which reads in information from a sql query into a pandas datafile. I display this in tksheet and I can then click on individual cells to edit them. Then on clicking a save button, the program reads the datafile updating the sql tables.
+
+This is quite a different way of doing things than David's project, and the progress I have made so far has led me to decide I will create my own accounting project in a new repository, and just use David's repository as a guide. I will keep you informed when I have made enough progress to upload it onto github.
+
+I will keep things simple until I have learned enough to share my work with you.
 
 The original README.md file now follows -:
 
